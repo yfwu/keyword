@@ -1,7 +1,6 @@
 #!/bin/env python
 
 from acora import AcoraBuilder
-from functools import reduce
 
 def transform(filename):
     with open(filename, 'r', encoding = "cp1252") as f:
@@ -12,13 +11,13 @@ def transform(filename):
     return list(filter(None, temporary.split("\n")[1:]))
 
 
-DDID = transform("dict/DDID.txt")
-DDID_builder = AcoraBuilder(DDID)
-DDID_AC = DDID_builder.build()
+def buildac(keywords):
+    builder = AcoraBuilder(keywords)
+    return builder.build()
 
-GAMUTS = transform('dict/GAMUTS.txt')
-GAMUTS_builder = AcoraBuilder(GAMUTS)
-GAMUTS_AC = GAMUTS_builder.build()
+
+DDID_AC = buildac(transform('dict/DDID.txt'))
+GAMUTS_AC = buildac(transform('dict/GAMUTS.txt'))
 
 
 with open('reports/01.txt', 'r') as f:
